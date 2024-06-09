@@ -18,7 +18,8 @@ public class KataService {
 		//priorité à la division
 		if (chaine % 3 == 0) {
 			result.append(FOO);
-		} else if (chaine % 5 == 0) {
+		}
+		if (chaine % 5 == 0) {
 			result.append(BAR);
 		}
 
