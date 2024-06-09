@@ -1,0 +1,52 @@
+<ng-container>
+  <div class="container">
+    <h1>KATA HFR</h1>
+    <h2>Les règles du jeux</h2>
+    <ul>
+      <li>Si le nombre est divisible par 3 ou s'il contient 3, la chaîne de characters doit contenir "FOO"</li>
+      <li>Si le nombre est divisible par 5 ou s'il contient 5, la chaîne de characters doit contenir "BAR"</li>
+      <li>Si le nombre contient 7, la chaîne de characters doit contenir "QUIX"</li>
+      <li>La règle "divisible par" est plus prioritaire que la règle "contient"</li>
+      <li>Le contenu est analysé de gauche à droite</li>
+      <li>Si aucune des règles n'est vérifiée, retourner la nombre en entrée sous forme de chaîne de characters</li>
+    </ul>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kataModal">
+      let's go
+    </button>
+  </div>
+
+  <div class="modal fade" id="kataModal" tabindex="-1" aria-labelledby="kataModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="kataModalLabel">Veuillez saisir la chaine de caractéres</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="chaineSaisie" class="form-label">Nombre :</label>
+              <input type="number" class="form-control" id="chaineSaisie" formControlName="chaineSaisie">
+              <div
+                *ngIf="chaineSaisie?.invalid && (chaineSaisie?.dirty || chaineSaisie?.touched)"
+                class="text-danger">
+                <span *ngIf="chaineSaisie?.errors?.['required']">Champs obligatoire</span>
+                <span *ngIf="chaineSaisie?.errors?.['min']">Valeur minimale 0</span>
+                <span *ngIf="chaineSaisie?.errors?.['max']">Valeur maximale 100</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+          </form>
+
+          <div class="mb-3 mt-3" *ngIf="resultat">
+            <label for="resultField" class="form-label">Resultat: </label><br>
+            <span id="resultField">{{ resultat }}</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearData()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
